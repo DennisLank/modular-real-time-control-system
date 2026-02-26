@@ -1,54 +1,123 @@
-# Webbasierte Steuerungsplattform für den Quanser QArm mit KI-Integration
+# Modular Control Interface for the Quanser QArm
 
-## Einleitung
-Dieses Repository enthält den vollständigen Projektordner meiner Bachelorarbeit  
-**„Intelligente Robotersteuerung durch eine webbasierte Mensch-Maschine-Schnittstelle mit modularer KI-Integration“**.
+## Overview
 
-Die Anwendung wurde mit dem Python-Framework Dash entwickelt und dient als intuitives Steuer- und Visualisierungssystem für den Quanser QArm Roboterarm.  
-Neben der manuellen Robotersteuerung integriert das System KI-gestützte Objekterkennung mit YOLOv11 sowie eine Sprachsteuerung (STT/TTS), um die Interaktion zwischen Mensch und Maschine intuitiver zu gestalten.
+This repository contains the full project code for a bachelor thesis focused on developing a modular and user-friendly control interface for the Quanser QArm.
 
-## Hauptfunktionen
-- **Dashboard**: Übersicht und Einführung in die Nutzung der Applikation.
-- **Manuelle Kontrolle**: Steuerung des Roboterarms über Gelenkwinkel, Koordinatenfahrt und LED-Farbsteuerung.
-- **Live-Feed**: Echtzeitansicht des Arbeitsbereichs mit RGB- und Tiefenkameramodus.
-- **Scan-Funktion**: Automatisierte Objekterkennung und -lokalisierung mittels YOLOv11, inklusive Pick & Place-Operationen.
-- **YOLO-Modellverwaltung**: Upload und Verwaltung eigener YOLOv11-Modelle sowie Erstellung individueller Trainingsdatensätze.  
-  ➔ Zur Unterstützung des Trainingsprozesses steht ein begleitendes Google Colab Notebook zur Verfügung.
-- **Sprachsteuerung**: Regelbasierte Steuerung zentraler Funktionen per Sprachbefehl (STT/TTS).
+The application was built with Dash (Python) and combines robot control, live camera streaming, object detection, dataset generation and voice interaction within a single local web interface.
 
-## Systemvoraussetzungen
+The project is centered on practical system integration: connecting hardware control, computer vision, local data handling and interactive UI components in one coherent application.
+
+---
+
+## Main Features
+
+- **Dashboard**
+  - Central landing page for navigating the application and accessing its main functions.
+
+- **Manual Control**
+  - Direct control of the Quanser QArm via joint-based movement, Cartesian coordinate input and LED color control.
+
+- **Live Feed**
+  - Real-time camera streaming with support for both RGB and depth views.
+  - Separate windows can be opened for the live image streams.
+
+- **Scan Workflow**
+  - Automated object scanning using a YOLO-based detection pipeline.
+  - Detected objects are visualized in a table and a bird’s-eye view map.
+  - Includes Pick & Place actions between detected objects or to manually specified coordinates.
+
+- **YOLO Model Management**
+  - Upload and selection of local `.pt` YOLO models.
+  - Step-by-step dataset generation workflow with macro and micro image capture.
+  - ZIP export of generated image datasets and optional e-mail delivery.
+
+- **Voice Interaction**
+  - Speech-to-text and text-to-speech support for selected robot and UI commands.
+
+---
+
+## Technical Structure
+
+The application is organized into modular components, including:
+
+- Dash-based frontend with tab-specific modules
+- Robot control layer for the Quanser QArm
+- Intel RealSense camera integration
+- YOLO-based object detection
+- MySQL-based storage for scan results
+- Local Flask routes for RGB and depth MJPEG streams
+- Speech input/output helpers for voice-driven commands
+
+This modular structure was chosen to keep the system maintainable and to separate UI, hardware access, vision logic and data handling as clearly as possible.
+
+---
+
+## Technology Stack
+
+- Python
+- Dash
+- Flask
+- OpenCV
+- Intel RealSense (`pyrealsense2`)
+- Ultralytics YOLO
+- MySQL
+- SpeechRecognition
+- pyttsx3
+- NumPy / Pandas / scikit-learn
+
+---
+
+## System Requirements
+
 - Windows 10
-- Funktionierende Internetverbindung (für initialen Setup und STT)
-- Vorinstallierte Software:
-  - **Git** (zur automatisierten Klonung des Repositories)
-  - **Anaconda oder Miniconda** (zur Verwaltung der Python-Umgebung)
-  - **MySQL-Server** (lokal installiert und konfiguriert)
-  - **QUARC-Control-Suite** (Quanser, Installation erforderlich für Hardwareansteuerung)
+- Working internet connection (required for initial setup and speech recognition)
+- Installed software:
+  - Git
+  - Anaconda or Miniconda
+  - Local MySQL server
+  - QUARC Control Suite (required for Quanser hardware access)
 
-## Installation & Ausführung
-1. Prüfen, ob alle Systemvoraussetzungen erfüllt sind.
-2. Die Datei **`start_quanser.exe`** ausführen, welche automatisch folgende Schritte durchführt:
-   - Klonen des Repositories
-   - Erstellen einer Python-Umgebung für die Anwendung (mit Conda)
-   - Installieren aller benötigten Pakete (requirements.txt)
-   - Starten der Webanwendung
-3. Die Applikation läuft anschließend lokal unter:  
-   [http://localhost:8050]
+---
 
-Das zentrale Hauptmodul ist **`dash_app.py`** – es wird durch den Startprozess automatisch ausgeführt.
+## Running the Application
 
-## Hintergrund
-Diese Anwendung wurde im Rahmen meiner Bachelorarbeit im Studiengang Maschinenbau an der Ostfalia Hochschule für angewandte Wissenschaften entwickelt.  
-Ziel war es, eine modulare, KI-gestützte und benutzerfreundliche Steuerungsplattform für den Quanser QArm Roboterarm zu realisieren.
+The project is designed as a local Windows application.
 
-## Weitere Informationen
-- Die Landingpage der Webanwendung bietet einen Überblick über sämtliche Funktionen.
-- Die vollständige technische und konzeptionelle Dokumentation befindet sich in der zugehörigen Bachelorarbeit.
+The main application entry point is:
 
-## Kontakt
+`dash_app.py`
+
+The repository also includes Windows launcher files for starting the project environment.
+
+Once started successfully, the interface runs locally at:
+
+`http://localhost:8050`
+
+---
+
+## Project Background
+
+This system was developed as part of a bachelor thesis in engineering.
+
+The goal was to create a practical and modular control platform that combines robotic interaction, computer vision and intuitive user access in a single application.
+
+In addition to the control interface itself, the project also includes a workflow for collecting custom image data and integrating trained YOLO models back into the application.
+
+---
+
+## Scope and Limitations
+
+This project is a prototype intended for research and demonstration purposes.
+
+It was developed for a specific hardware setup consisting of the Quanser QArm and an Intel RealSense camera.  
+As a result, parts of the implementation are hardware-dependent and tailored to this environment.
+
+The application is not intended as a production-ready system, but as a modular experimental platform that can be extended and refined further.
+
+---
+
+## Contact
+
 Dennis Marvin Lank  
-E-Mail: dennismarvinlank@gmail.com
-
-## Technische Hinweise
-Diese Applikation dient als Prototyp für Demonstrations- und Forschungszwecke.
-Trotz umfassender Tests können vereinzelte Fehler im praktischen Betrieb nicht vollständig ausgeschlossen werden und bieten Potenzial für zukünftige Weiterentwicklungen.
+Email: dennismarvinlank@gmail.com
